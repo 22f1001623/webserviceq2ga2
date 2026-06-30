@@ -23,7 +23,7 @@ ISSUER = "https://idp.exam.local"
 AUDIENCE = "tds-tmxxa5s0.apps.exam.local"
 
 class TokenRequest(BaseModel):
-    token: str = Field(description="The JWT token string to verify")
+    token: str
 
 class ValidTokenResponse(BaseModel):
     valid: str
