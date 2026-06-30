@@ -26,7 +26,7 @@ class TokenRequest(BaseModel):
     token: str
 
 class ValidTokenResponse(BaseModel):
-    valid: str
+    valid: bool = True
     email: str  
     sub: str
     aud: str
