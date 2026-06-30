@@ -35,7 +35,7 @@ class ValidTokenResponse(BaseModel):
 async def verify_token(payload: TokenRequest):
     try:
         # Decode and strictly validate claims
-        decoded_claims = jwt.decode(
+        claims = jwt.decode(
             payload.token,
             PUBLIC_KEY,
             algorithms=["RS256"],
@@ -50,12 +50,12 @@ async def verify_token(payload: TokenRequest):
             }
         )
 
-        return ValidTokenResponse(
-            valid=True,
-            email=str(decoded_claims.get("email")),
-            sub=str(decoded_claims.get("sub")),
-            aud=str(decoded_claims.get("aud"))
-        )
+        return {
+            "valid": True,
+            "email": claims.get("email", ""),
+            "sub": claims.get("sub", ""),
+            "aud": claims.get("aud", "")
+        }
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
